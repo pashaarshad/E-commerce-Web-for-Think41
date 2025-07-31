@@ -3,38 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Commerce Web App</title>
+    <title>Think41 E-Commerce - Premium Shopping Experience</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <header>
-        <h1>Think41 E-Commerce</h1>
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#products">Products</a></li>
-                <li><a href="#departments">Departments</a></li>
-                <li><a href="#about">About</a></li>
-            </ul>
+    <!-- Header with Hero Section -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <h1><i class="fas fa-shopping-bag"></i> Think41</h1>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#hero" class="nav-link">Home</a></li>
+                    <li><a href="#products" class="nav-link">Products</a></li>
+                    <li><a href="#departments" class="nav-link">Departments</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                </ul>
+                <div class="nav-icons">
+                    <i class="fas fa-search"></i>
+                    <i class="fas fa-heart"></i>
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+            </div>
         </nav>
+        
+        <!-- Hero Section -->
+        <section id="hero" class="hero">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h2>Discover Amazing Products</h2>
+                    <p>Shop the latest laptops, phones, and tech accessories with unbeatable prices and quality.</p>
+                    <button class="cta-button" onclick="document.getElementById('products').scrollIntoView()">
+                        Shop Now <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+                <div class="hero-images">
+                    <img src="images/laptopes and phone.png" alt="Laptops and Phones" class="hero-img">
+                    <img src="images/apply_laptop.png" alt="Apple Laptop" class="hero-img secondary">
+                </div>
+            </div>
+        </section>
     </header>
-    <main>
-        <section id="products">
-            <h2>Products</h2>
-            <div id="product-list"></div>
+
+    <main class="main-content">
+        <!-- Filter Section -->
+        <section class="filter-section">
+            <div class="container">
+                <h3>Filter by Department</h3>
+                <div id="department-filter" class="filter-buttons"></div>
+            </div>
         </section>
-        <section id="departments">
-            <h2>Departments</h2>
-            <div id="department-list"></div>
+
+        <!-- Products Section -->
+        <section id="products" class="products-section">
+            <div class="container">
+                <h2>Our Products</h2>
+                <div class="search-bar">
+                    <input type="text" id="search-input" placeholder="Search products...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div id="product-grid" class="product-grid"></div>
+                <div id="loading" class="loading hidden">
+                    <i class="fas fa-spinner fa-spin"></i> Loading products...
+                </div>
+            </div>
         </section>
-        <section id="about">
-            <h2>About</h2>
-            <p>Welcome to Think41 E-Commerce! Shop the best products by department. Filter and explore our catalog easily.</p>
+
+        <!-- Departments Section -->
+        <section id="departments" class="departments-section">
+            <div class="container">
+                <h2>Shop by Department</h2>
+                <div id="department-cards" class="department-cards"></div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about-section">
+            <div class="container">
+                <div class="about-content">
+                    <div class="about-text">
+                        <h2>About Think41 E-Commerce</h2>
+                        <p>Welcome to Think41 E-Commerce, your premier destination for cutting-edge technology and electronics. We specialize in bringing you the latest laptops, smartphones, and tech accessories from top brands worldwide.</p>
+                        <p>Our mission is to provide exceptional quality products at competitive prices, backed by outstanding customer service and fast, reliable shipping.</p>
+                        <div class="features">
+                            <div class="feature">
+                                <i class="fas fa-shipping-fast"></i>
+                                <span>Fast Shipping</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Secure Payment</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-headset"></i>
+                                <span>24/7 Support</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-image">
+                        <img src="images/apply_laptop.png" alt="Premium Technology" class="about-img">
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
-    <footer>
-        <p>&copy; 2025 Think41 E-Commerce</p>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-shopping-bag"></i> Think41</h3>
+                    <p>Your trusted e-commerce partner for premium technology products.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#products">Products</a></li>
+                        <li><a href="#departments">Departments</a></li>
+                        <li><a href="#about">About Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-envelope"></i> contact@think41.com</p>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Think41 E-Commerce. All rights reserved.</p>
+            </div>
+        </div>
     </footer>
+
     <script src="app.js"></script>
 </body>
 </html>
