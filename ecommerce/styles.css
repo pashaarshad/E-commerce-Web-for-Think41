@@ -44,8 +44,20 @@ section {
     padding: 1rem;
     border-radius: 6px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-    flex: 1 1 200px;
-    min-width: 200px;
+    flex: 1 1 250px;
+    min-width: 250px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.product:hover, .department:hover {
+    background: #dee2e6;
+}
+
+.department {
+    text-align: center;
+    font-weight: bold;
+    min-width: 150px;
 }
 .product h3 {
     margin-top: 0;

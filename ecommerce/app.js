@@ -1,50 +1,80 @@
-// Sample data for demonstration
-const products = [
-    { id: 1, name: "Laptop", price: 1200, department: "Electronics" },
-    { id: 2, name: "T-Shirt", price: 25, department: "Clothing" },
-    { id: 3, name: "Coffee Maker", price: 80, department: "Home Appliances" },
-    { id: 4, name: "Headphones", price: 150, department: "Electronics" },
-    { id: 5, name: "Sneakers", price: 90, department: "Clothing" },
-    { id: 6, name: "Blender", price: 60, department: "Home Appliances" }
-];
+// API base URL
+const API_BASE = 'http://localhost:3000/api';
 
-const departments = [
-    "All",
-    ...Array.from(new Set(products.map(p => p.department)))
-];
+// Global data storage
+let products = [];
+let departments = [];
+
+// Fetch data from API
+async function fetchDepartments() {
+    try {
+        const response = await fetch(`${API_BASE}/departments`);
+        const data = await response.json();
+        departments = [{ id: 'all', name: 'All' }, ...data];
+        renderDepartments();
+    } catch (error) {
+        console.error('Error fetching departments:', error);
+    }
+}
+
+async function fetchProducts() {
+    try {
+        const response = await fetch(`${API_BASE}/products`);
+        products = await response.json();
+        renderProducts();
+    } catch (error) {
+        console.error('Error fetching products:', error);
+    }
+}
+
+async function fetchProductsByDepartment(departmentId) {
+    try {
+        const response = await fetch(`${API_BASE}/products/department/${departmentId}`);
+        const filteredProducts = await response.json();
+        renderProducts(filteredProducts);
+    } catch (error) {
+        console.error('Error fetching products by department:', error);
+    }
+}
 
 function renderDepartments() {
     const departmentList = document.getElementById('department-list');
     departmentList.innerHTML = '';
-    departments.forEach(dep => {
+    departments.forEach(dept => {
         const div = document.createElement('div');
         div.className = 'department';
-        div.textContent = dep;
-        div.onclick = () => filterProducts(dep);
+        div.textContent = dept.name;
+        div.onclick = () => filterProducts(dept.id, dept.name);
         departmentList.appendChild(div);
     });
 }
 
-function renderProducts(filtered = products) {
-    const productList = document.getElementById('product-list');
-    productList.innerHTML = '';
-    filtered.forEach(product => {
+function renderProducts(productList = products) {
+    const productListElement = document.getElementById('product-list');
+    productListElement.innerHTML = '';
+    productList.forEach(product => {
         const div = document.createElement('div');
         div.className = 'product';
-        div.innerHTML = `<h3>${product.name}</h3><p>Price: $${product.price}</p><p>Department: ${product.department}</p>`;
-        productList.appendChild(div);
+        div.innerHTML = `
+            <h3>${product.name}</h3>
+            <p>Price: $${product.price}</p>
+            <p>Department: ${product.department_name}</p>
+            <p>Description: ${product.description || 'No description available'}</p>
+        `;
+        productListElement.appendChild(div);
     });
 }
 
-function filterProducts(department) {
-    if (department === "All") {
+function filterProducts(departmentId, departmentName) {
+    if (departmentId === 'all') {
         renderProducts(products);
     } else {
-        renderProducts(products.filter(p => p.department === department));
+        fetchProductsByDepartment(departmentId);
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    renderDepartments();
-    renderProducts();
+// Initialize the application
+document.addEventListener('DOMContentLoaded', async () => {
+    await fetchDepartments();
+    await fetchProducts();
 });
