@@ -1,0 +1,172 @@
+{
+  "api_info": {
+    "name": "Think41 E-Commerce REST API",
+    "version": "1.0.0",
+    "base_url": "http://localhost:3000",
+    "api_base": "http://localhost:3000/api",
+    "status": "Production Ready"
+  },
+  "endpoints": {
+    "products": {
+      "list_all": {
+        "method": "GET",
+        "url": "http://localhost:3000/api/products",
+        "description": "List all products with pagination",
+        "parameters": {
+          "page": "Page number (optional, default: 1)",
+          "limit": "Items per page (optional, default: 20)"
+        },
+        "examples": [
+          "http://localhost:3000/api/products",
+          "http://localhost:3000/api/products?page=2",
+          "http://localhost:3000/api/products?page=1&limit=10"
+        ]
+      },
+      "get_by_id": {
+        "method": "GET",
+        "url": "http://localhost:3000/api/products/{id}",
+        "description": "Get specific product by ID",
+        "parameters": {
+          "id": "Product ID (required, number)"
+        },
+        "examples": [
+          "http://localhost:3000/api/products/1",
+          "http://localhost:3000/api/products/25",
+          "http://localhost:3000/api/products/100"
+        ]
+      },
+      "search": {
+        "method": "GET",
+        "url": "http://localhost:3000/api/products/search",
+        "description": "Search products by name, brand, category",
+        "parameters": {
+          "q": "Search term (required)"
+        },
+        "examples": [
+          "http://localhost:3000/api/products/search?q=laptop",
+          "http://localhost:3000/api/products/search?q=apple",
+          "http://localhost:3000/api/products/search?q=phone"
+        ]
+      },
+      "filter_by_department": {
+        "method": "GET",
+        "url": "http://localhost:3000/api/products/department/{department}",
+        "description": "Filter products by department",
+        "parameters": {
+          "department": "Department name (required)",
+          "page": "Page number (optional, default: 1)",
+          "limit": "Items per page (optional, default: 20)"
+        },
+        "examples": [
+          "http://localhost:3000/api/products/department/Electronics",
+          "http://localhost:3000/api/products/department/Clothing",
+          "http://localhost:3000/api/products/department/Home"
+        ]
+      }
+    },
+    "departments": {
+      "list_all": {
+        "method": "GET",
+        "url": "http://localhost:3000/api/departments",
+        "description": "List all available departments",
+        "parameters": {},
+        "examples": [
+          "http://localhost:3000/api/departments"
+        ]
+      }
+    },
+    "utility": {
+      "api_docs": {
+        "method": "GET",
+        "url": "http://localhost:3000/api",
+        "description": "API documentation and endpoint list",
+        "parameters": {},
+        "examples": [
+          "http://localhost:3000/api"
+        ]
+      },
+      "health_check": {
+        "method": "GET",
+        "url": "http://localhost:3000/health",
+        "description": "Server and database health status",
+        "parameters": {},
+        "examples": [
+          "http://localhost:3000/health"
+        ]
+      }
+    }
+  },
+  "response_formats": {
+    "success": {
+      "structure": {
+        "success": true,
+        "data": "Array or Object with actual data",
+        "message": "Success message",
+        "pagination": {
+          "page": "Current page number",
+          "limit": "Items per page",
+          "total": "Total items",
+          "totalPages": "Total pages"
+        }
+      }
+    },
+    "error": {
+      "structure": {
+        "success": false,
+        "error": "Error type",
+        "message": "Detailed error message"
+      }
+    }
+  },
+  "testing": {
+    "browser_urls": [
+      "http://localhost:3000/api/products",
+      "http://localhost:3000/api/products/1",
+      "http://localhost:3000/api/departments",
+      "http://localhost:3000/api/products/search?q=laptop",
+      "http://localhost:3000/health"
+    ],
+    "curl_commands": [
+      "curl http://localhost:3000/api/products",
+      "curl http://localhost:3000/api/products/1",
+      "curl http://localhost:3000/api/departments",
+      "curl \"http://localhost:3000/api/products/search?q=laptop\"",
+      "curl http://localhost:3000/health"
+    ],
+    "postman_collection": {
+      "base_url": "http://localhost:3000",
+      "requests": [
+        {
+          "name": "Get All Products",
+          "method": "GET",
+          "url": "{{base_url}}/api/products"
+        },
+        {
+          "name": "Get Product by ID",
+          "method": "GET",
+          "url": "{{base_url}}/api/products/1"
+        },
+        {
+          "name": "Search Products",
+          "method": "GET",
+          "url": "{{base_url}}/api/products/search?q=laptop"
+        },
+        {
+          "name": "Get Departments",
+          "method": "GET",
+          "url": "{{base_url}}/api/departments"
+        },
+        {
+          "name": "Filter by Department",
+          "method": "GET",
+          "url": "{{base_url}}/api/products/department/Electronics"
+        }
+      ]
+    }
+  },
+  "setup_commands": [
+    "node load_csv_data.js",
+    "node api_server.js",
+    "node test_api.js"
+  ]
+}
